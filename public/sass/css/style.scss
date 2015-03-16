@@ -6,12 +6,129 @@ $secondary-gray: #777;
 $tertiary-gray: #999;
 $border-gray: #ddd;
 
+@mixin border-radius($radius) {
+  -webkit-border-radius: $radius;
+     -moz-border-radius: $radius;
+      -ms-border-radius: $radius;
+          border-radius: $radius;
+}
+
 body {
   background: $background-color;
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  width: 100%;
+  color: $body-font-color;
+  font: "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+  -webkit-font-smoothing: antialiased;
+}
+
+.font-large {
+  font-size: 22px;
+  margin: 0;
+  font-weight: bolder;
+}
+
+.font-medium {
+  font-size: 16px;
+  margin: 0;
+  font-weight: bold;
+}
+
+.font-small {
+  font-size: 14px;
+}
+
+.user-title, .description, .meta {
+  @extend .font-small;
+}
+.user-name {
+  @extend .font-medium;
+}
+
+h2 {
+  @extend .font-large;
+  margin: 2rem 0 1rem 0 !important;
+}
+
+.user-title {
+  color: $secondary-gray;
+}
+.meta {
+  color: $tertiary-gray;
+}
+
+.row, .description {
+  margin: 0 0 0.1rem 0;
+}
+.description {
+  max-width: 580px;
 }
 
 a {
   color: #00B7FF;
+}
+ul {
+  margin: 0;
+}
+li{
+  list-style: none;
+}
+
+#feedback {
+  width: 640px;
+  padding: 20px;
+  margin: auto;
+}
+
+.image-block {
+  padding: 0.3em 0.3em 0 0;
+}
+
+.image-block img {
+  @include border-radius(3px);
+}
+
+.feedback-input{
+  width: 85%;
+  height: 38px;
+  border: 1px solid $border-gray;
+  @include border-radius(3px);
+}
+
+$button-font-weight: bold;
+
+.button, .button:visited {
+  font-size: 14px !important;
+  font-weight: bold;
+  background-color: $orange;
+}
+.button:hover {
+  background-color: $orange-hover;
+}
+
+.comment {
+  margin: 0 0 1.5rem 0;
+  max-width: 640px;
+}
+
+.columns {
+  padding-left: 0 !important;
+}
+
+.feedback-input {
+  @extend .font-small;
+}
+
+
+@media (max-width: 600px) {
+  #feedback {
+    width: 90%;
+    padding: 20px;
+    margin: auto;
+  }
+  .comment {
+    min-width: 320px;
+  }
+  .feedback-input{
+    width: 75%;
+  }
 }

@@ -26,7 +26,7 @@ var Comment = React.createClass({
           </div>
         </div>
         <div className='text row'>
-          <div className='description small-offset-1 columns'>{this.props.content.comment.description}</div>
+          <p className='description small-offset-1 columns'>{this.props.content.comment.description}</p>
         </div>
         <div className='meta row'>
           <div className='date-posted small-offset-1 columns'>{this.props.content.comment.date_posted}</div>
@@ -47,48 +47,57 @@ var CommentList = React.createClass({
 
 var CommentsApp = React.createClass({
   getInitialState: function() {
-    return {items: data, text: ''};
+    return {items: data.reverse(), text: ''};
   },
   onChange: function(e) {
     this.setState({text: e.target.value});
   },
   handleSubmit: function(e) {
     e.preventDefault();
-    function getUser(){
-      //use this function to fetch session details about logged in user
-      return {
-        "id": "4",
-        "img_src": "/images/user-img-4.png",
-        "full_name": "Tom Riddle",
-        "title": "Wizard"
-      };
-    }
-    var item = {
-      id: this.state.items.length+1,
-      user: getUser(),
-      comment: {
-        description: this.state.text,
-        date_posted: moment().format('ddd MMM Do')
+
+    //remove multiple white spaces
+    this.state.text.replace(/\s{2,}/g, ' ');
+
+    //do not post comment if no text or only white spaces are present
+    if(this.state.text.match(/^\s*$/) === null){
+      function getUser(){
+        //use this function to fetch session details about logged in user
+        return {
+          "id": "4",
+          "img_src": "/images/user-img-4.png",
+          "full_name": "Tom Riddle",
+          "title": "Wizard"
+        };
       }
+      var item = {
+        id: this.state.items.length+1,
+        user: getUser(),
+        comment: {
+          description: this.state.text,
+          date_posted: moment().format('ddd MMM Do')
+        }
+      }
+          
+      this.state.items.unshift(item);
+      var nextText = '';
+      this.setState({text: nextText});
+      //write some code here to post new item to database
     }
-    
-    this.state.items.unshift(item);
-    var nextText = '';
-    this.setState({text: nextText});
   },
   render: function() {
     return (
       <div>
         <h2>Leave Feedback</h2>
-        <form onSubmit={this.handleSubmit}>
-          <input onChange={this.onChange} value={this.state.text} />
-          <button>{'Post' + (this.state.items.length + 1)}</button>
+        <form className='clearfix' onSubmit={this.handleSubmit}>
+          <input className='feedback-input left' onChange={this.onChange} placeholder=' What do you think about this project?' value={this.state.text} />
+          <a className='button tiny radius right' onClick={this.handleSubmit}>Post</a>
         </form>
+        <hr/>
         <CommentList items={this.state.items} />
       </div>
     );
   }
 });
 
-React.render(<CommentsApp/>, document.querySelector('#comments'));
+React.render(<CommentsApp/>, document.querySelector('#feedback'));
 
