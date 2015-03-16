@@ -20,7 +20,7 @@ Scalable module to leave comments on stuff.
 * Node with Express.js
 
 ### Data:
-* [public/data.json](public/data.json)
+> [public/data.json](public/data.json)
 
 [View live version](http://skillshare-feedback.herokuapp.com)
 
