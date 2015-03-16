@@ -132,3 +132,9 @@ $button-font-weight: bold;
     width: 75%;
   }
 }
+
+@media (max-width: 380px){
+  .feedback-input{
+    width: 60%;
+  }
+}
