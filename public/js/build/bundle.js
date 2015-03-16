@@ -10,98 +10,97 @@ var data = require('../data.json');
 $(document).foundation();
 
 window.onload = function(){
-  // console.log(data);
-}
 
-var Comment = React.createClass({displayName: "Comment",
-  render: function() {
-    return (
-      React.createElement("li", {key: this.props.content.id, className: "comment"}, 
-        React.createElement("div", {className: "user row"}, 
-          React.createElement("div", {className: "image-block small-1 columns"}, 
-            React.createElement("img", {src: this.props.content.user.img_src})
+  var Comment = React.createClass({displayName: "Comment",
+    render: function() {
+      return (
+        React.createElement("li", {key: this.props.content.id, className: "comment"}, 
+          React.createElement("div", {className: "user row"}, 
+            React.createElement("div", {className: "image-block small-1 columns"}, 
+              React.createElement("img", {src: this.props.content.user.img_src})
+            ), 
+            React.createElement("div", {className: "info-block small-11 columns"}, 
+              React.createElement("h3", {className: "user-name"}, this.props.content.user.full_name), 
+              React.createElement("h4", {className: "user-title"}, this.props.content.user.title)
+            )
           ), 
-          React.createElement("div", {className: "info-block small-11 columns"}, 
-            React.createElement("h3", {className: "user-name"}, this.props.content.user.full_name), 
-            React.createElement("h4", {className: "user-title"}, this.props.content.user.title)
+          React.createElement("div", {className: "text row"}, 
+            React.createElement("p", {className: "description small-offset-1 columns"}, this.props.content.comment.description)
+          ), 
+          React.createElement("div", {className: "meta row"}, 
+            React.createElement("div", {className: "date-posted small-offset-1 columns"}, this.props.content.comment.date_posted)
           )
-        ), 
-        React.createElement("div", {className: "text row"}, 
-          React.createElement("p", {className: "description small-offset-1 columns"}, this.props.content.comment.description)
-        ), 
-        React.createElement("div", {className: "meta row"}, 
-          React.createElement("div", {className: "date-posted small-offset-1 columns"}, this.props.content.comment.date_posted)
         )
-      )
-      );
-  }
-});
-
-var CommentList = React.createClass({displayName: "CommentList",
-  render: function() {
-    var createItem = function(content) {
-      return (React.createElement(Comment, {content: content}));
-    };
-    return React.createElement("ul", null, this.props.items.map(createItem));
-  }
-});
-
-var CommentsApp = React.createClass({displayName: "CommentsApp",
-  getInitialState: function() {
-    return {items: data.reverse(), text: ''};
-  },
-  onChange: function(e) {
-    this.setState({text: e.target.value});
-  },
-  handleSubmit: function(e) {
-    e.preventDefault();
-
-    //remove multiple white spaces
-    this.state.text.replace(/\s{2,}/g, ' ');
-
-    //do not post comment if no text or only white spaces are present
-    if(this.state.text.match(/^\s*$/) === null){
-      function getUser(){
-        //use this function to fetch session details about logged in user
-        return {
-          "id": "4",
-          "img_src": "/images/user-img-4.png",
-          "full_name": "Tom Riddle",
-          "title": "Wizard"
-        };
-      }
-      var item = {
-        id: this.state.items.length+1,
-        user: getUser(),
-        comment: {
-          description: this.state.text,
-          date_posted: moment().format('ddd MMM Do')
-        }
-      }
-          
-      this.state.items.unshift(item);
-      var nextText = '';
-      this.setState({text: nextText});
-      //write some code here to post new item to database
+        );
     }
-  },
-  render: function() {
-    return (
-      React.createElement("div", null, 
-        React.createElement("h2", null, "Leave Feedback"), 
-        React.createElement("form", {className: "clearfix", onSubmit: this.handleSubmit}, 
-          React.createElement("input", {className: "feedback-input left", onChange: this.onChange, placeholder: " What do you think about this project?", value: this.state.text}), 
-          React.createElement("a", {className: "button tiny radius right", onClick: this.handleSubmit}, "Post")
-        ), 
-        React.createElement("hr", null), 
-        React.createElement(CommentList, {items: this.state.items})
-      )
-    );
-  }
-});
+  });
 
-React.render(React.createElement(CommentsApp, null), document.querySelector('#feedback'));
+  var CommentList = React.createClass({displayName: "CommentList",
+    render: function() {
+      var createItem = function(content) {
+        return (React.createElement(Comment, {content: content}));
+      };
+      return React.createElement("ul", null, this.props.items.map(createItem));
+    }
+  });
 
+  var CommentsApp = React.createClass({displayName: "CommentsApp",
+    getInitialState: function() {
+      return {items: data.reverse(), text: ''};
+    },
+    onChange: function(e) {
+      this.setState({text: e.target.value});
+    },
+    handleSubmit: function(e) {
+      e.preventDefault();
+
+      //remove multiple white spaces
+      this.state.text.replace(/\s{2,}/g, ' ');
+
+      //do not post comment if no text or only white spaces are present
+      if(this.state.text.match(/^\s*$/) === null){
+        function getUser(){
+          //use this function to fetch session details about logged in user
+          return {
+            "id": "4",
+            "img_src": "/images/user-img-4.png",
+            "full_name": "Tom Riddle",
+            "title": "Wizard"
+          };
+        }
+        var item = {
+          id: this.state.items.length+1,
+          user: getUser(),
+          comment: {
+            description: this.state.text,
+            date_posted: moment().format('ddd MMM Do')
+          }
+        }
+            
+        this.state.items.unshift(item);
+        var nextText = '';
+        this.setState({text: nextText});
+        //write some code here to post new item to database
+      }
+    },
+    render: function() {
+      return (
+        React.createElement("div", null, 
+          React.createElement("h2", null, "Leave Feedback"), 
+          React.createElement("form", {className: "clearfix", onSubmit: this.handleSubmit}, 
+            React.createElement("input", {className: "feedback-input left", onChange: this.onChange, placeholder: " What do you think about this project?", value: this.state.text}), 
+            React.createElement("a", {className: "button tiny radius right", onClick: this.handleSubmit}, "Post")
+          ), 
+          React.createElement("hr", null), 
+          React.createElement(CommentList, {items: this.state.items})
+        )
+      );
+    }
+  });
+
+  React.render(React.createElement(CommentsApp, null), document.querySelector('#feedback'));
+
+}
 
 
 },{"../data.json":166,"./foundation.min.js":167,"jquery-browserify":3,"moment":4,"react/addons":5}],2:[function(require,module,exports){
