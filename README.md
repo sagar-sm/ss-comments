@@ -20,5 +20,6 @@ Scalable module to leave comments on stuff.
 ### Data:
 * [public/data.json](public/data.json)
 
+[View live version](http://skillshare-feedback.herokuapp.com)
 
 MIT License, 2015 © Sagar Mohite.
