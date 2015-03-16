@@ -3,9 +3,9 @@
 Scalable module to leave comments on stuff.
 
 ### Front-end stack:
-[public/js/main.js](public/js/main.js)
+> [public/js/main.js](public/js/main.js)
 
-[public/sass/css/style.scss](public/sass/css/style.scss)
+> [public/sass/css/style.scss](public/sass/css/style.scss)
 
 * React.js
 * Browserify
@@ -15,7 +15,7 @@ Scalable module to leave comments on stuff.
 * Gulp (for building JSX)
 
 ### Server stack:
-[app.js](app.js)
+> [app.js](app.js)
 * Node with Express.js
 
 ### Data:
