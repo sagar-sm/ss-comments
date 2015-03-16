@@ -1,0 +1,17 @@
+$background-color: #fff;
+$body-font-color: #444;
+$orange: #f36c21;
+$orange-hover: #f68c51;
+$secondary-gray: #777;
+$tertiary-gray: #999;
+$border-gray: #ddd;
+
+body {
+  background: $background-color;
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a {
+  color: #00B7FF;
+}
